@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PyStore — install it anywhere 📦</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+:root {
+    --cream: #FDF7EF; --surface:#FFFFFF; --surface-2:#FFF9F0; --line:#EFE6D8;
+    --ink:#2B2B33; --muted:#74727E; --faint:#A9A6B0;
+    --coral:#FF6B4A; --coral-soft:rgba(255,107,74,0.12);
+    --teal:#1FB6A6; --teal-soft:rgba(31,182,166,0.14);
+    --yellow:#FFC43D; --yellow-soft:rgba(255,196,61,0.18);
+    --purple:#9B5DE5; --purple-soft:rgba(155,93,229,0.12);
+    --pink:#FF5D8F;
+}
+body{background:var(--cream); color:var(--ink); font-family:'Nunito',sans-serif;}
+h1,h2,h3,.font-display{font-family:'Fredoka',sans-serif; font-weight:600; letter-spacing:-0.01em;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.panel{background:var(--surface); border:2px solid var(--line); border-radius:24px;}
+.blob{position:absolute; border-radius:50%; filter:blur(40px); opacity:.35; z-index:0; animation:float 8s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(14px,-18px) scale(1.05);}}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:14px; border-radius:999px; padding:12px 24px; transition:transform .15s cubic-bezier(.34,1.56,.64,1); border:2px solid transparent; cursor:pointer;}
+.btn:hover{transform:translateY(-2px) scale(1.03);}
+.btn-primary{background:var(--coral); color:white; box-shadow:0 6px 0 0 #D8492A;}
+.btn-primary:hover{background:#FF7D5F;}
+.btn-primary:active{transform:translateY(2px) scale(.98); box-shadow:0 2px 0 0 #D8492A;}
+.btn-ghost{background:var(--surface); border-color:var(--line); color:var(--ink);}
+.btn-ghost:hover{border-color:var(--coral); background:var(--coral-soft);}
+.terminal{background:#1E2229; border:2px solid var(--line); border-radius:18px; overflow:hidden;}
+.terminal__bar{display:flex; align-items:center; gap:6px; padding:10px 14px; background:#262B33; border-bottom:2px solid #333944;}
+.terminal__dot{width:10px; height:10px; border-radius:50%;}
+.terminal__body{font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.7; color:#D7DBE0; padding:16px; word-break:break-all;}
+@keyframes popIn{0%{opacity:0; transform:translateY(16px) scale(.96);}70%{opacity:1; transform:translateY(-2px) scale(1.01);}100%{opacity:1; transform:translateY(0) scale(1);}}
+.animate-fade-in{animation:popIn .55s cubic-bezier(.22,1,.36,1) forwards;}
+.gradient-text{background-clip:text; -webkit-background-clip:text; color:transparent; background-image:linear-gradient(90deg,var(--coral),var(--pink),var(--purple));}
+.copy-btn{transition:transform .15s ease;}
+.copy-btn:active{transform:scale(0.92);}
+</style>
+</head>
+<body class="min-h-screen">
+
+<nav class="max-w-5xl mx-auto px-6 py-6 flex items-center gap-2">
+    <span class="text-2xl">📦</span>
+    <span class="text-lg font-display font-semibold">PyStore</span>
+</nav>
+
+<main class="max-w-3xl mx-auto px-6 pb-20">
+    <section class="text-center pt-10 pb-14 relative overflow-hidden animate-fade-in">
+        <div class="blob w-72 h-72 -top-10 -left-16" style="background:var(--coral);"></div>
+        <div class="blob w-72 h-72 top-4 -right-10" style="background:var(--teal); animation-delay:-3s;"></div>
+        <div class="relative z-10">
+            <div class="text-5xl mb-4">🚀</div>
+            <h1 class="text-4xl md:text-5xl font-display font-semibold mb-4">
+                Get PyStore on <span class="gradient-text">any Linux box</span>
+            </h1>
+            <p class="text-lg text-muted font-bold">One command. No cloning, no fuss. 📦✨</p>
+        </div>
+    </section>
+
+    <section class="mb-12 animate-fade-in">
+        <div class="terminal">
+            <div class="terminal__bar">
+                <span class="terminal__dot" style="background:#F4436C;"></span>
+                <span class="terminal__dot" style="background:#FFC43D;"></span>
+                <span class="terminal__dot" style="background:#1FB6A6;"></span>
+                <span class="text-xs mono ml-3" style="color:#8b93a1;">terminal</span>
+                <button id="copy-btn" class="copy-btn ml-auto text-xs font-bold px-3 py-1 rounded-full" style="background:var(--coral); color:white;">
+                    📋 Copy
+                </button>
+            </div>
+            <div class="terminal__body" id="install-cmd">$ loading…</div>
+        </div>
+        <p class="text-center text-xs text-faint font-bold mt-3">Paste that into a terminal and hit enter. That's it. 🎉</p>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 mb-14">
+        <div class="panel p-6 text-center">
+            <div class="text-3xl mb-2">🔎</div>
+            <h3 class="text-sm font-semibold">Checks what you need</h3>
+        </div>
+        <div class="panel p-6 text-center">
+            <div class="text-3xl mb-2">📥</div>
+            <h3 class="text-sm font-semibold">Downloads & sets up</h3>
+        </div>
+        <div class="panel p-6 text-center">
+            <div class="text-3xl mb-2">🖥️</div>
+            <h3 class="text-sm font-semibold">Adds a desktop icon</h3>
+        </div>
+    </section>
+
+    <section class="panel p-8 mb-10">
+        <h2 class="text-lg font-display font-semibold mb-4">🙋 Prefer to do it by hand?</h2>
+        <ol class="space-y-3 text-sm font-bold text-muted list-decimal list-inside">
+            <li>Download <a href="pystore.tar.gz" class="text-accent" style="color:var(--coral);">pystore.tar.gz</a></li>
+            <li>Extract it anywhere: <code class="mono" style="background:var(--surface-2); padding:2px 6px; border-radius:6px;">tar -xzf pystore.tar.gz</code></li>
+            <li>Run <code class="mono" style="background:var(--surface-2); padding:2px 6px; border-radius:6px;">./install-desktop-icon.sh</code></li>
+        </ol>
+    </section>
+
+    <section class="text-center">
+        <p class="text-xs text-faint font-bold">Needs Python 3 · Flatpak gets added automatically if it's missing 🐧</p>
+    </section>
+</main>
+
+<footer class="text-center pb-10">
+    <p class="text-xs text-faint font-bold">Made with 🧡 for the Linux desktop.</p>
+</footer>
+
+<script>
+    const base = window.location.href.replace(/\/[^\/]*$/, '');
+    const cmd = `curl -fsSL ${base}/install.sh | bash -s -- ${base}/pystore.tar.gz`;
+    document.getElementById('install-cmd').textContent = '$ ' + cmd;
+
+    document.getElementById('copy-btn').addEventListener('click', () => {
+        navigator.clipboard.writeText(cmd).then(() => {
+            const btn = document.getElementById('copy-btn');
+            const original = btn.textContent;
+            btn.textContent = '✅ Copied!';
+            setTimeout(() => { btn.textContent = original; }, 1600);
+        });
+    });
+</script>
+
+</body>
+</html>
